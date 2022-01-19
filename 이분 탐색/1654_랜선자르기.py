@@ -1,18 +1,20 @@
 import sys
 input = sys.stdin.readline
 
-k, n = map(int, input().split())
-line = [int(input()) for _ in range(k)]
-start, end = 1, max(line)
+n, m = map(int, input().split())
+h = list(map(int, input().split()))
+
+start, end = 1, max(h)
 
 while start <= end:
     mid = (start + end) // 2
-    cnt_line = 0
+    height = 0
     
-    for i in line:
-        cnt_line += i // mid
-    
-    if cnt_line >= n:
+    for i in h:
+        if i >= mid:
+            height += i - mid
+        
+    if height >= m:
         start = mid + 1
     else:
         end = mid - 1
