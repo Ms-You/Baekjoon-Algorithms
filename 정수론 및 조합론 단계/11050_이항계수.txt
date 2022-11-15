@@ -1,0 +1,21 @@
+import java.util.*;
+import java.io.*;
+public class Main
+{
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		int n = Integer.parseInt(st.nextToken());
+		int k = Integer.parseInt(st.nextToken());
+		
+		long val1 = 1, val2 = 1;
+		for (int i = 0; i < k; i++){
+		    val1 *= n-i;
+		    val2 *= i+1;
+		}
+		    
+		System.out.println(val1/val2);
+		
+		br.close();
+	}
+}
