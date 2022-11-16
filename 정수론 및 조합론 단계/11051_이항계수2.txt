@@ -1,0 +1,26 @@
+import java.util.*;
+import java.io.*;
+public class Main
+{
+    static long[][] dc;
+    
+    public static long comb(int n, int k){
+        if (dc[n][k] > 0) return dc[n][k];
+        
+        if (n == k || k == 0) return dc[n][k] = 1;
+        return dc[n][k] = (comb(n-1, k-1) + comb(n-1, k))%10007;
+    }
+    
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		
+		int n = Integer.parseInt(st.nextToken());
+		int k = Integer.parseInt(st.nextToken());
+        dc = new long[n+1][k+1];
+		
+		System.out.println(comb(n, k));
+		
+		br.close();
+	}
+}
