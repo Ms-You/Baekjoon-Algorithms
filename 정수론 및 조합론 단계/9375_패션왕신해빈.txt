@@ -1,0 +1,40 @@
+import java.util.*;
+import java.io.*;
+public class Main
+{
+    public static int way_to_wear(String[] clothes){
+        int cnt = 1;
+        List<String> list = new ArrayList<>();
+        List<Integer> list2 = new ArrayList<>();
+        for (int i = 0; i < clothes.length; i++)
+            list.add(clothes[i]);
+            
+        Set<String> set = new HashSet<>(list);
+        for (String s : set)
+            list2.add(Collections.frequency(list, s));
+        
+        for (int n : list2)
+            cnt *= n+1;
+        
+        return cnt-1;
+    }
+    
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st;
+		int t = Integer.parseInt(br.readLine());
+		
+		for (int i = 0; i < t; i++){
+		    int n = Integer.parseInt(br.readLine());
+		    String[] clothes = new String[n];
+		    for (int j = 0; j < n; j++){
+		        st = new StringTokenizer(br.readLine());
+		        String trash = st.nextToken();
+		        clothes[j] = st.nextToken();
+		    }
+		    System.out.println(way_to_wear(clothes));
+		}
+		
+		br.close();
+	}
+}
