@@ -1,0 +1,40 @@
+// 참고
+import java.util.*;
+import java.io.*;
+public class Main
+{
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st;
+		String s = br.readLine();
+		int[][] cnt = new int[s.length()][26];
+		cnt[0][s.charAt(0) - 'a']++;
+		
+		for (int i = 1; i < s.length(); i++){
+		    int temp = s.charAt(i) - 'a';
+		    
+		    for (int j = 0; j < 26; j++)
+		        cnt[i][j] = cnt[i-1][j];
+		        
+		    cnt[i][temp]++;
+		}
+		
+		
+		int q = Integer.parseInt(br.readLine());
+		StringBuilder sb = new StringBuilder();
+		
+		for (int i = 0; i < q; i++){
+		    st = new StringTokenizer(br.readLine());
+		    char alpha = st.nextToken().charAt(0);
+		    int start = Integer.parseInt(st.nextToken());
+		    int end = Integer.parseInt(st.nextToken());
+		    
+		    if (start == 0) sb.append(cnt[end][alpha - 'a']).append('\n');
+		    else sb.append(cnt[end][alpha - 'a'] - cnt[start-1][alpha - 'a']).append('\n');
+		}
+		
+		System.out.println(sb);
+		
+		br.close();
+	}
+}
