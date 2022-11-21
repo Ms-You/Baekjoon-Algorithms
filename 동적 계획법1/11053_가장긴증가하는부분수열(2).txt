@@ -1,0 +1,45 @@
+import java.util.*;
+import java.io.*;
+public class Main
+{
+    static int[] dp;
+    private static int lis(int[] arr){
+        int idx = 0;
+        for (int i = 0; i < arr.length; i++){
+            int val = binarySearch(arr[i], 0, idx, idx+1);
+            if (val == -1) dp[idx++] = arr[i];
+            else dp[val] = arr[i];
+        }
+        
+        return idx;
+    }
+    
+    private static int binarySearch(int num, int start, int end, int size){
+        int res = 0;
+        while(start <= end){
+            int mid = (start + end)/2;
+            if (num <= dp[mid]){
+                res = mid;
+                end = mid-1;
+            } else start = mid+1;
+        }
+        
+        if (start == size) return -1;
+        return res;
+    }
+    
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		int n = Integer.parseInt(br.readLine());
+		int[] arr = new int[n];
+		dp = new int[n];
+		
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		for (int i =  0; i < n; i++)
+		    arr[i] = Integer.parseInt(st.nextToken());
+		
+		System.out.println(lis(arr));
+		
+		br.close();
+	}
+}
