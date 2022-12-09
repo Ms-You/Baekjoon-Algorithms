@@ -1,0 +1,49 @@
+// 참고
+import java.util.*;
+import java.io.*;
+public class Main
+{
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		int n = Integer.parseInt(br.readLine());
+		int[] arr = new int[8001];
+		int avg = 0, min = Integer.MAX_VALUE, max = Integer.MIN_VALUE, median = 4001, mode = 4001;
+		int cnt = 0, mode_max = 0;
+		boolean flag = false;
+		
+		for (int i = 0; i < n; i++){
+		    int value = Integer.parseInt(br.readLine());
+		    arr[value + 4000]++;
+		    avg += value;
+		    if (min > value) min = value;
+		    if (max < value) max = value;
+		}
+		
+		for (int i = min+4000; i <= max+4000; i++){
+		    if (arr[i] > 0){
+		        // 중앙값 구하기 - 절반에 못미쳤을 때
+		        if (cnt < (n+1)/2){
+		            cnt += arr[i];
+		            median = i - 4000;
+		        }
+		        
+		        // 최빈값 구하기
+		        if (mode_max < arr[i]){
+		            mode_max = arr[i];
+		            mode = i - 4000;
+		            flag = true;
+		        } else if (mode_max == arr[i] && flag){
+		            mode = i - 4000;
+		            flag = false;
+		        }
+		    }
+		}
+		
+		System.out.println(Math.round((double)avg/n));
+		System.out.println(median);
+		System.out.println(mode);
+		System.out.println(max - min);
+		
+		br.close();
+	}
+}
